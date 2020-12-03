@@ -35,6 +35,10 @@
 % Wb = Total width of the base in the BJT/HBT
 % Wc = Total width of the collector in the BJT/HBT
 % T  = Temperature in Kelvin
+% niSi = intrinsic carrier concentration of silicon
+% Ksi = dielectric constant of silicon
+% epsilon0 = vacuum permittivity of free space
+% kBT = thermal voltage
 %**************************************************************************
 %
 %**********************Global Material Properties**************************
@@ -49,7 +53,7 @@ niSi = 1.5e10; %atoms/cm^3
 x0 = linspace(0.05, 0.65, 13); %vector of x0 from 0.05-0.65 in steps of 0.05
 Ksi = 11.7; %dielectric constant of silicon
 epsilon0 = 8.85e-14; %vacuum permittivity of free space
-kT = 0.0259; % 
+kBT = 0.0259; % 
 %**************************************************************************
 %
 %**********************Device 1 Material Properties************************

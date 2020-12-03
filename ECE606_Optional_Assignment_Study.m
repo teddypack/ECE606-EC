@@ -19,6 +19,8 @@ tic;
 % alpha1 = alpha Gain of device 1 (BJT)
 % alpha2 = alpha Gain of device 2 (abrupt junction HBT) 
 % alpha3 = alpha Gain of device 3 (graded junction HBT)
+% De = minority carrier diffusion coefficient in the emitter
+% Dc = minority carrier diffusion coefficient in the collector
 %**************************************************************************
 
 %**************************Initialize Parameters***************************
