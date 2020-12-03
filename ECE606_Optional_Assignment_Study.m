@@ -19,14 +19,6 @@ tic;
 % alpha1 = alpha Gain of device 1 (BJT)
 % alpha2 = alpha Gain of device 2 (abrupt junction HBT) 
 % alpha3 = alpha Gain of device 3 (graded junction HBT)
-
-%Ne = Doping concentration in the emitter 
-% Nb = Doping concentration in the base
-% Nc = Doping concentration in the collector
-% We = Total width of the emitter in the BJT/HBT
-% Wb = Total width of the base in the BJT/HBT
-% Wc = Total width of the collector in the BJT/HBT
-% T  = Temperature in Kelvin
 %**************************************************************************
 
 %**************************Initialize Parameters***************************
