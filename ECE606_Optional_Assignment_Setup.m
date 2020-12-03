@@ -45,12 +45,14 @@ We = 1;    %um
 Wb = 0.5;  %um
 Wc = 1;    %um
 T = 300;   %temperature in Kelvin
+niSi = 1.5e10; %atoms/cm^3
+x0 = 0.05:0.05:0.65; %vector of x0 from 0.05-0.65 in steps of 0.05
 %**************************************************************************
 %
 %**********************Device 1 Material Properties************************
 
 %intrinsic carrier concentration
-ni1= ; %intrinsics carrier concentration in device 1
+%intrinsics carrier concentration in device 1
 %mobility
 %diffusion coefficient
 %dielectric constants

@@ -17,8 +17,6 @@ ECE606_Optional_Assignment_Setup;
 %
 %*******************************Run Study**********************************
 %
-%Calculations go here
-%
 %******************************Plot Results********************************
 %ECE606_Optional_Assignment_Plot('Plot Name',Structure,Fig Number);
 %
