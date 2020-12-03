@@ -9,8 +9,7 @@
 % Emitter and Collector remain Si for the HTB devices
 %
 %********************************Internal**********************************
-% V = vector of voltage values used from 29.6V to 33.2V in 0.2V steps
-% i = vector of measured current values from input voltage
+
 %**************************************************************************
 %
 %**********************Global Material Properties**************************
