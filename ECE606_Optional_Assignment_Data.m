@@ -1,10 +1,13 @@
-% This script identifies all preliminary data to be used in the main
+% This script sets parameters and performs intial calculations for the 
+% simple simulink average value dc/dc converter simulation savm_dcdc
 % program for the 3 noted devices:
 %   1) Si BJT
 %   2) Si - abrupt junction SixGe1-x - HBT
 %       - x is a specific value x0 in [0,1.0]
 %   3) Si - graded junction SixGe1-x - HBT
 %       - x is graded linearly from 1.0 to some value xo
+%
+% Emitter and Collector remain Si for the HTB devices
 %
 %********************************Internal**********************************
 % V = vector of voltage values used from 29.6V to 33.2V in 0.2V steps
@@ -18,6 +21,39 @@ Nc = 1e17; %atoms/cm^3
 We = 1;    %um
 Wb = 0.5;  %um
 Wc = 1;    %um
+T = 300;   %temperature in Kelvin
+%**************************************************************************
+%
+%**********************Device 1 Material Properties************************
+
+%intrinsic carrier concentration
+%mobility
+%diffusion coefficient
+%dielectric constants
+%electron affinity
+%valence band offsets
+
+%**************************************************************************
+%
+%**********************Device 2 Material Properties************************
+
+%intrinsic carrier concentration
+%mobility
+%diffusion coefficient
+%dielectric constants
+%electron affinity
+%valence band offsets
+
+%**************************************************************************
+%
+%**********************Device 3 Material Properties************************
+
+%intrinsic carrier concentration
+%mobility
+%diffusion coefficient
+%dielectric constants
+%electron affinity
+%valence band offsets
 
 %*************************Team Members*************************************
 % Heather Hoftsee
