@@ -1,6 +1,5 @@
-% This script sets parameters and performs intial calculations for the 
-% simple simulink average value dc/dc converter simulation savm_dcdc
-% program for the 3 noted devices:
+% This script sets parameters and performs intial calculations for the 3 
+% noted devices:
 %   1) Si BJT
 %   2) Si - abrupt junction SixGe1-x - HBT
 %       - x is a specific value x0 in [0,1.0]
