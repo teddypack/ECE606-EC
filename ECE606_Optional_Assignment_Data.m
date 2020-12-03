@@ -52,7 +52,8 @@ T = 300;   %temperature in Kelvin
 %dielectric constants
 %electron affinity
 %valence band offsets
-
+%**************************************************************************
+%
 %*************************Team Members*************************************
 % Heather Hoftsee
 % hhofstee@purdue.edu
@@ -60,4 +61,13 @@ T = 300;   %temperature in Kelvin
 % nmorriss@purdue.edu
 % Ted Packowski
 % tpackows@purdue.edu
+%**************************************************************************
+
+%******************************Sources*************************************
+% Equations
+% https://www.eit.lth.se/fileadmin/eit/courses/fff115/Lectures/F5.pdf
+% Material Properties
+% http://www.ioffe.ru/SVA/NSM/Semicond/SiGe/
+% http://www.ioffe.ru/SVA/NSM/Semicond/SiGe/bandstr.html#carrier%20concentration 
+% http://www.virginiasemi.com/pdf/generalproperties%20Si62002.DOC
 %**************************************************************************
