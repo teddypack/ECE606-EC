@@ -4,11 +4,11 @@ function ECE606_Optional_Assignment_Plot(Name,pd,fn)
 % This script plots the values calculated in the study script
 %
 %*************************Team Members*************************************
-% Heather Hoftsee
-% hhofstee@purdue.edu
-% Nicholas Morrissey 
-% nmorriss@purdue.edu
-% Ted Packowski
+% Heather Hoftsee 
+% hhofstee@purdue.edu 
+% Nicholas Morrissey
+% nmorriss@purdue.edu 
+% Ted Packowski 
 % tpackows@purdue.edu
 %**************************************************************************
 %

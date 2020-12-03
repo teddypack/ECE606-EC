@@ -7,7 +7,7 @@
 %   3) Si - graded junction SixGe1-x - HBT
 %       - x is graded linearly from 1.0 to some value xo
 %
-% Emitter and Collector remain Si for the HTB devices
+% Emitter and Collector remain Si for the HBT devices
 %
 %*************************Team Members*************************************
 % Heather Hoftsee
@@ -46,7 +46,10 @@ Wb = 0.5;  %um
 Wc = 1;    %um
 T = 300;   %temperature in Kelvin
 niSi = 1.5e10; %atoms/cm^3
-x0 = 0.05:0.05:0.65; %vector of x0 from 0.05-0.65 in steps of 0.05
+x0 = linspace(0.05, 0.65, 13); %vector of x0 from 0.05-0.65 in steps of 0.05
+Ksi = 11.7; %dielectric constant of silicon
+epsilon0 = 8.85e-14; %vacuum permittivity of free space
+kT = 0.0259; % 
 %**************************************************************************
 %
 %**********************Device 1 Material Properties************************
