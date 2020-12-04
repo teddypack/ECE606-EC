@@ -39,9 +39,9 @@
 % Ksi = dielectric constant of silicon
 % epsilon0 = vacuum permittivity of free space
 % kBT = thermal voltage
-% mune = minority carrier mobility in the Si emitter
-% munc = minority carrier mobility in the Si emitter
-% mupb1 = minority carrier mobility in the BJT Si base
+% mupe = minority carrier mobility in the Si emitter
+% mupc = minority carrier mobility in the Si emitter
+% munb1 = minority carrier mobility in the BJT Si base
 % Dnb1 = minority carrier diffusion coefficient in the
 %**************************************************************************
 %
@@ -65,7 +65,7 @@ munb1 = 275; %cm^2/V-sec - taken from page 80 SDF
 %**************************************************************************
 %
 %**********************Device 1 Material Properties************************
-Dnb1 = kBT * mupb1;
+Dnb1 = kBT * munb1;
 %intrinsic carrier concentration
 %intrinsics carrier concentration in device 1
 %mobility
