@@ -13,6 +13,7 @@ tic;
 %**************************************************************************
 %
 %********************************Internal**********************************
+% DNB1
 % beta1 = beta Gain of device 1 (BJT) 
 % beta2 = beta Gain of device 2 (abrupt junction HBT) 
 % beta3 = beta Gain of device 3 (graded junction HBT)
@@ -29,7 +30,7 @@ ECE606_Optional_Assignment_Setup;
 %*******************************Run Study**********************************
 %
 %*******************************BJT Calcs**********************************
-
+beta1 = 
 disp(x0);
 %alpha1 = beta1 / (beta1 +1);
 

@@ -39,6 +39,10 @@
 % Ksi = dielectric constant of silicon
 % epsilon0 = vacuum permittivity of free space
 % kBT = thermal voltage
+% mune = minority carrier mobility in the Si emitter
+% munc = minority carrier mobility in the Si emitter
+% mupb1 = minority carrier mobility in the BJT Si base
+% Dnb1 = minority carrier diffusion coefficient in the
 %**************************************************************************
 %
 %**********************Global Material Properties**************************
@@ -53,11 +57,15 @@ niSi = 1.5e10; %atoms/cm^3
 x0 = linspace(0.05, 0.65, 13); %vector of x0 from 0.05-0.65 in steps of 0.05
 Ksi = 11.7; %dielectric constant of silicon
 epsilon0 = 8.85e-14; %vacuum permittivity of free space
-kBT = 0.0259; % 
+kBT = 0.0259; %eV
+mupe = 70; %cm^2/V-sec - taken from page 80 SDF
+mupc = 331; %cm^2/V-sec - taken from page 80 SDF
+munb1 = 275; %cm^2/V-sec - taken from page 80 SDF
+
 %**************************************************************************
 %
 %**********************Device 1 Material Properties************************
-
+Dnb1 = kBT * mupb1;
 %intrinsic carrier concentration
 %intrinsics carrier concentration in device 1
 %mobility
