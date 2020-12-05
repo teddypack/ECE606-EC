@@ -36,13 +36,19 @@ ECE606_Optional_Assignment_Setup;
 %disp(x0);
 %
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓BJT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-%*******************************BJT Calcs**********************************
+%***********************βDC & αDC calculations*****************************
 beta1 = (Dnb1*We*Ne)/(Dpe*Wb*Nb); % common emitter DC gain
 alpha1 = beta1/(beta1 +1); %common base DC gain
+
+%********************Built in Potential calculations***********************
 VbiBE1 = kBT*log((Ne*Nb)/(niSi^2)); %built in potential across BE1 junction
 VbiBC1 = kBT*log((Nc*Nb)/(niSi^2)); %built in potential across BC1 junction
+
+%************************Depletion Region Widths***************************
 xnbe1 = sqrt((VbiBE1*2*KSi*epsilon0*Nb)/(q*Ne*(Ne+Nb))); %width of EB1 depletion region
 xnbc1 = sqrt((VbiBC1*2*KSi*epsilon0*Nb)/(q*Nc*(Nc+Nb))); %width of CB1 depletion region
+
+%*******************Electrical Base Width Calculation**********************
 W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
 %
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Abrupt junction HBT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -95,9 +101,9 @@ KSiGe = 16.2 - 4.5*x0;
 %************************Depletion Region Widths***************************
 xnbe2 = sqrt((VbiBE2*2*KSi.*KSiGe*epsilon0*Nb)./(q*Ne*(Ne*KSi+Nb.*KSiGe))); %width of EB2 depletion region
 xnbc2 = sqrt((VbiBC2*2*KSi.*KSiGe*epsilon0*Nb)./(q*Nc*(Nc*KSi+Nb.*KSiGe))); %width of CB2 depletion region
-disp(xnbc2*1e6);
-W2 = Wb-(xnbe2*1e6)-(xnbc2*1e6); %electrical base width in device 2 (in um)
-disp(W2);
+
+%*******************Electrical Base Width Calculation**********************
+W2 = Wb-(xnbe2*1e4)-(xnbc2*1e4); %electrical base width in device 2 (in um)
  
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Graded junction HBT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 %*********Alloy Intrinsic Carrier Concentration Calculations***************
@@ -113,8 +119,10 @@ VbiBC3 = kBT*log((Nc*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potentia
 
 %************************Depletion Region Widths***************************
 xnbe3 = sqrt((VbiBE3*2*KSi.*KSiGe*epsilon0*Nb)./(q*Ne*(Ne*KSi+Nb.*KSiGe))); %width of EB3 depletion region
-% xnbc3 = %width of CB3 depletion region
-% W3 = Wb-xnbe3-xnbc3; %electrical base width in device 3 (in um)
+xnbc3 = sqrt((VbiBC3*2*KSi.*KSiGe*epsilon0*Nb)./(q*Nc*(Nc*KSi+Nb.*KSiGe))); %width of CB2 depletion region
+
+%*******************Electrical Base Width Calculation**********************
+W3 = Wb-(xnbe3*1e4)-(xnbc3*1e4); %electrical base width in device 3 (in um)
 %**************************************************************************
 %
 %******************************Plot Results********************************
@@ -164,12 +172,12 @@ grid on;
 
 %***********************Plot Electrical Base Width*************************
 figure(4)
-plot(x0, W1*ones(13,1));
+plot(x0, W1*ones(13,1), x0, W2, x0, W3);
 axis([0.05 0.65 0 1.1]);
 xlabel('x0');
 ylabel('Width (µm)');
 title(['Electrical Base Width']);
-legend('BJT');%,'Abrupt HBT','Graded HBT','Location','northeast');
+legend('BJT','Abrupt HBT','Graded HBT','Location','northeast');
 grid on;
 
 %********************************End Code**********************************
