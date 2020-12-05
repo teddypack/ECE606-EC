@@ -125,7 +125,7 @@ title(['Common Emitter DC Gain (βDC)']);
 legend('BJT','Abrupt HBT','Graded HBT','Location','northeast')
 grid on;
 
-% %***********************Plot Common Base DC Gain***************************
+%***********************Plot Common Base DC Gain***************************
 figure(3)
 plot(x0, alpha1*ones(13,1), x0, alpha2, x0, alpha3);
 %yline(alpha1,'-',sprintf('BJT=%0.4f',alpha1));
@@ -136,14 +136,14 @@ title(['Common Base DC Gain (αDC)']);
 legend('BJT','Abrupt HBT','Graded HBT','Location','northeast')
 grid on;
 
-% %***********************Plot Electrical Base Width*************************
+%***********************Plot Electrical Base Width*************************
 figure(4)
 plot(x0, W1*ones(13,1));
 axis([0.05 0.65 0 1.1]);
 xlabel('x0');
 ylabel('Width (µm)');
 title(['Electrical Base Width']);
-legend('BJT','Abrupt HBT','Graded HBT','Location','northeast')
+legend('BJT');%,'Abrupt HBT','Graded HBT','Location','northeast');
 grid on;
 
-% %********************************End Code**********************************
+%********************************End Code**********************************

@@ -93,7 +93,7 @@ Dpe = kBT * mupe; %cm^2/sec
 %electron affinity for device 1 base is ChiSi
 
 %valence band offsets
-%no valence band offset
+%no valence band offset for homojunctions
 
 %**************************************************************************
 %
