@@ -106,7 +106,6 @@ for i=3:15
     DataTable(i+14,2)=sprintf('%1.5g',beta3(i-2));
     DataTable(i+14,3)=sprintf('%1.5g',alpha3(i-2));
 end
-%disp(DataTable);
 fig = uifigure;
 fig.Name = 'Table of Results';
 fig.Position = [500 300 459 677 ];
@@ -117,29 +116,30 @@ uit.Position = [5 5 449 667];
 
 %*********************Plot Common Emitter DC Gain**************************
 figure(2)
-plot(beta1);
-yline(beta1,'-',sprintf('BJT=%0.4f',beta1));
-axis([0 1.1 0 100]);
+semilogy(x0, beta1*ones(13,1), x0, beta2, x0, beta3);
+ylim([10^1 2*10^8]);
+xlim([0.05 0.65])
 xlabel('x0');
 ylabel('Gain');
-title(['Common Emitter DC Gain']);
+title(['Common Emitter DC Gain (βDC)']);
+legend('BJT','Abrupt HBT','Graded HBT','Location','northeast')
 grid on;
 
 % %***********************Plot Common Base DC Gain***************************
 figure(3)
-plot(alpha1);
-yline(alpha1,'-',sprintf('BJT=%0.4f',alpha1));
-axis([0 1.1 0 1.1]);
+plot(x0, alpha1*ones(13,1), x0, alpha2, x0, alpha3);
+%yline(alpha1,'-',sprintf('BJT=%0.4f',alpha1));
+axis([0.05 0.65 0.985 1.005]);
 xlabel('x0');
 ylabel('Gain');
-title(['Common Base DC Gain']);
+title(['Common Base DC Gain (αDC)']);
+legend('BJT','Abrupt HBT','Graded HBT','Location','northeast')
 grid on;
 
 % %***********************Plot Electrical Base Width*************************
 figure(4)
-plot(W1);
-yline(W1,'-',sprintf('BJT=%0.4f',W1));
-axis([0 1.1 0 1.1]);
+plot(x0, W1*ones(13,1));
+axis([0.05 0.65 0 1.1]);
 xlabel('x0');
 ylabel('Width (µm)');
 title(['Electrical Base Width']);
