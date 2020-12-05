@@ -33,7 +33,9 @@ close all force;
 %**************************Initialize Parameters***************************
 ECE606_Optional_Assignment_Setup;
 %*******************************Run Study**********************************
+%disp(x0);
 %
+%▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓BJT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 %*******************************BJT Calcs**********************************
 beta1 = (Dnb1*We*Ne)/(Dpe*Wb*Nb); % common emitter DC gain
 alpha1 = beta1/(beta1 +1); %common base DC gain
@@ -43,8 +45,8 @@ xnbe1 = sqrt((VbiBE1*2*KSi*epsilon0*Nb)/(q*Ne*(Ne+Nb))); %width of EB1 depletion
 xnbc1 = sqrt((VbiBC1*2*KSi*epsilon0*Nb)/(q*Nc*(Nc+Nb))); %width of CB1 depletion region
 W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
 %
-%***********************Abrupt junction HBT Calcs**************************
-%disp(x0);
+%▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Abrupt junction HBT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
 %*****************Minority Carrier Mobility in the Base********************
 for i=1:6
     munb2(i)=7333.333*(1-x0(i))-5466.667; %for 0<x<0.3
@@ -57,36 +59,60 @@ Dnb2 = kBT * munb2;  %cm^2/sec - Minority Carrier Diffusion Coefficient
 %************************SiGe Alloy Band Gap*******************************
 %EgSiGe = 1.12-0.41*(1-x0)+0.008*(1-x0).^2;%for 0.15<x<1.0
 for i=1:3
-  EgSiGe(i)=5.88-(9.58.*xo_ge(i))+(4.43.*xo_ge(i).*xo_ge(i));  %Valid when xo_ge>0.85
+  EgSiGe(i)=5.88-(9.58.*(1-x0(i)))+(4.43.*(1-x0(i)).^2);  %Valid when xo_ge>0.85
 end
 for i=4:13
-  EgSiGe(i)=1.17-(0.47.*xo_ge(i))+(0.24.*xo_ge(i).*xo_ge(i));  %Valid when xo_ge<0.85
+  EgSiGe(i)=1.17-(0.47.*(1-x0(i)))+(0.24.*(1-x0(i)).^2);  %Valid when xo_ge<0.85
 end
 
 %**********************SiGe Electron Affinity******************************
 ChiSiGe = 4 + 0.05 * x0;
 
+%*****************SiGe Valence Band Discontinuity**************************
 DeltaEv = abs(EgSi - EgSiGe) - abs(ChiSiGe - ChiSi);
+
+%***********************βDC & αDC calculations*****************************
 beta2 = ((Dnb2*We*Ne)/(Dpe*Wb*Nb)).*exp(DeltaEv/kBT); % common emitter DC gain
 alpha2 = beta2 ./ (beta2 +1); %common base DC gain
-% VbiBE2 = %built in potential across BE2 junction
-% VbiBC2 = %built in potential across BC2 junction
-% xnbe2 = %width of EB2 depletion region
-% xnbc2 = %width of CB2 depletion region
-% W2 = Wb-xnbe2-xnbc2; %electrical base width in device 2 (in um)
- 
-%***********************Graded junction HBT Calcs**************************
+
+%*****************SiGe Conduction Band Density of States*******************
 for i=1:2
-     nib3(i)=sqrt((5.3e15*T^1.5)*(4.82e15*4*(0.81-0.47*(1-x0(i)))*T^1.5)).*exp(-EgSiGe(i)/(2*kBT));
+    NCSiGe(i) = (5.3e15*T^1.5);    
 end
 for i=3:13
-     nib3(i)=sqrt((2e15*T^1.5)*(4.82e15*4*(0.81-0.47*(1-x0(i)))*T^1.5)).*exp(-EgSiGe(i)/(2*kBT));
+    NCSiGe(i) = (2e15*T^1.5);
 end
+
+%******************SiGe Valence Band Density of States*********************
+NVSiGe = (4.82e15*4*(0.81-0.47*(1-x0))*T^1.5);
+
+%********************Built in Potential calculations***********************
+VbiBE2 = kBT*log((Ne*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potential across BE2 junction
+VbiBC2 = kBT*log((Nc*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potential across BC2 junction
+%***********************SiGe Dielectric Constant***************************
+KSiGe = 16.2 - 4.5*x0;
+
+%************************Depletion Region Widths***************************
+xnbe2 = sqrt((VbiBE2*2*KSi.*KSiGe*epsilon0*Nb)./(q*Ne*(Ne*KSi+Nb.*KSiGe))); %width of EB2 depletion region
+xnbc2 = sqrt((VbiBC2*2*KSi.*KSiGe*epsilon0*Nb)./(q*Nc*(Nc*KSi+Nb.*KSiGe))); %width of CB2 depletion region
+disp(xnbc2*1e6);
+W2 = Wb-(xnbe2*1e6)-(xnbc2*1e6); %electrical base width in device 2 (in um)
+disp(W2);
+ 
+%▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Graded junction HBT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+%*********Alloy Intrinsic Carrier Concentration Calculations***************
+nib3 = sqrt(NCSiGe.*NVSiGe).*exp(-EgSiGe/(2*kBT));
+
+%***********************βDC & αDC calculations*****************************
 beta3 = (((nib3.^2).*Dnb2)*We*Ne)/(Dpe*Wb*Nb*niSi^2); % common emitter DC gain
 alpha3 = beta3 ./ (beta3 +1); %common base DC gain
-% VbiBE3 = %built in potential across BE3 junction
-% VbiBC3 = %built in potential across BC3 junction
-% xnbe3 = %width of EB3 depletion region
+
+%********************Built in Potential calculations***********************
+VbiBE3 = kBT*log((Ne*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potential across BE3 junction
+VbiBC3 = kBT*log((Nc*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potential across BC3 junction
+
+%************************Depletion Region Widths***************************
+xnbe3 = sqrt((VbiBE3*2*KSi.*KSiGe*epsilon0*Nb)./(q*Ne*(Ne*KSi+Nb.*KSiGe))); %width of EB3 depletion region
 % xnbc3 = %width of CB3 depletion region
 % W3 = Wb-xnbe3-xnbc3; %electrical base width in device 3 (in um)
 %**************************************************************************
