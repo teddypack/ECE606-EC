@@ -18,13 +18,33 @@
 % alpha1 = alpha Gain of device 1 (BJT)
 % alpha2 = alpha Gain of device 2 (abrupt junction HBT) 
 % alpha3 = alpha Gain of device 3 (graded junction HBT)
-% De = minority carrier diffusion coefficient in the emitter
-% Dc = minority carrier diffusion coefficient in the collector
 % xnbe1 = width of base-emitter base depletion region in device 1
 % xnbc1 = width of base-collector depletion region in device 1
-% VbiBE1 = built in potential across BE junction
-% VbiBC1 =built in potential across BC junction
-% W1 = electrical base width in device 1 (BJT)
+% xnbe2 = width of base-emitter base depletion region in device 2
+% xnbc2 = width of base-collector depletion region in device 2
+% xnbe3 = width of base-emitter base depletion region in device 3
+% xnbc3 = width of base-collector depletion region in device 3
+% VbiBE1 = built in potential across BE junction in device 1
+% VbiBC1 =built in potential across BC junction in device 1
+% VbiBE2 = built in potential across BE junction in device 2
+% VbiBC2 =built in potential across BC junction in device 2
+% VbiBE3 = built in potential across BE junction in device 3
+% VbiBC3 =built in potential across BC junction in device 3
+% W1 = electrical base width in device 1
+% W2 = electrical base width in device 2
+% W3 = electrical base width in device 3
+% munb2 = minority carrier mobility in the base of device 2
+% Dnb2 = minority carrier diffusion coefficient in the base of device 2
+% EgSiGe = band gap of Silicon Germanium Alloy
+% ChiSiGe = electron affinity of Silicon Germanium alloy
+% DeltaEv = Valence band discontinuity in SiGe Alloy
+% NCSiGe = Conduction Band Density of states in SiGe Alloy
+% NVSiGe = Valence Band Density of states in SiGe Alloy
+% KSiGe = SiGe Alloy Dielectric constant
+% nib3 = intrinsic carrier concentration in SiGe Alloy
+% DataTable = String array of information to be plotted in data table
+% fig = figure for user interface figure
+% uit = user interface table plotted inside uifigure
 %**************************************************************************
 %
 %*******************clear and close the workspace**************************
@@ -33,7 +53,6 @@ close all force;
 %**************************Initialize Parameters***************************
 ECE606_Optional_Assignment_Setup;
 %*******************************Run Study**********************************
-%disp(x0);
 %
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓BJT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 %%
@@ -61,6 +80,8 @@ end
 for i=4:13
     munb2(i)=597*(1-x0(i))-77.6; %for x>0.3   
 end
+
+%****************Minority Carrier Diffusion Coefficient********************
 Dnb2 = kBT * munb2;  %cm^2/sec - Minority Carrier Diffusion Coefficient
 
 %************************SiGe Alloy Band Gap*******************************
@@ -126,11 +147,10 @@ xnbc3 = sqrt((VbiBC3*2*KSi.*KSiGe*epsilon0*Nb)./(q*Nc*(Nc*KSi+Nb.*KSiGe))); %wid
 
 %*******************Electrical Base Width Calculation**********************
 W3 = Wb-(xnbe3*1e4)-(xnbc3*1e4); %electrical base width in device 3 (in um)
-%**************************************************************************
-%
+
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Plot Results▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 %%
-%***************************Plot Table of info*****************************
+%******************************Plot Data Table ****************************
 DataTable = strings(29,4);
 DataTable(1,:) = ["BJT",beta1,alpha1,W1];
 DataTable(2,:) = ["=====","Device 2","=====","=========="];
@@ -147,11 +167,11 @@ for i=3:15
 end
 fig = uifigure;
 fig.Name = 'Table of Results';
-fig.Position = [500 300 459 677 ];
+fig.Position = [500 300 478 677 ];
 uit = uitable(fig,'Data',DataTable);
 uit.ColumnName={'x0 (%Si)','βDC','αDC','Electrical Base Width (µm)'};%);
-uit.ColumnWidth={64,114,64,164};
-uit.Position = [5 5 449 667];
+uit.ColumnWidth={64,114,64,184};
+uit.Position = [5 5 468 667];
 
 %*********************Plot Common Emitter DC Gain**************************
 figure(2)

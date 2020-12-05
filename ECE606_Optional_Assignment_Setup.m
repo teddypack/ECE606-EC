@@ -52,7 +52,6 @@
 % munb1 = minority carrier mobility in the BJT Si base
 % Dnb1 = minority carrier diffusion coefficient in device 1 base
 % Dpe = minority carrier diffusion coefficient in all Si emitters
-% P = structure with required parameters to plot
 %**************************************************************************
 %
 %**********************Global Material Properties**************************
