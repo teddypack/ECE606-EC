@@ -64,6 +64,7 @@ Wc = 1;    %um
 T = 300;   %temperature in Kelvin
 niSi = 1.5e10; %atoms/cm^3
 x0 = linspace(0.05, 0.65, 13); %vector of x0 from 0.05-0.65 in steps of 0.05
+xo_ge=1-x0; %Same xo range as SixGe1-x, only accounted for Si1-xGex
 KSi = 11.7; %dielectric constant of silicon
 epsilon0 = 8.85e-14; %vacuum permittivity of free space
 kBT = 0.0259; %eV
@@ -71,7 +72,7 @@ mupe = 70; %cm^2/V-sec - taken from page 80 SDF
 mupc = 331; %cm^2/V-sec - taken from page 80 SDF
 ChiSi = 4.05; %eV
 q=1.602e-19; %C
-EgSi=1.12; %eV
+EgSi=1.11; %eV
 %**************************************************************************
 %
 %**********************Device 1 Material Properties************************

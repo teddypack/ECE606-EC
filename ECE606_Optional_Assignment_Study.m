@@ -55,20 +55,24 @@ end
 Dnb2 = kBT * munb2;  %cm^2/sec - Minority Carrier Diffusion Coefficient
 
 %************************SiGe Alloy Band Gap*******************************
-EgSiGe = 1.12-0.41*(1-x0)+0.008*(1-x0).^2;%for 0.15<x<1.0
+%EgSiGe = 1.12-0.41*(1-x0)+0.008*(1-x0).^2;%for 0.15<x<1.0
+for i=1:3
+  EgSiGe(i)=5.88-(9.58.*xo_ge(i))+(4.43.*xo_ge(i).*xo_ge(i));  %Valid when xo_ge>0.85
+end
+for i=4:13
+  EgSiGe(i)=1.17-(0.47.*xo_ge(i))+(0.24.*xo_ge(i).*xo_ge(i));  %Valid when xo_ge<0.85
+end
 
 %**********************SiGe Electron Affinity******************************
 ChiSiGe = 4 + 0.05 * x0;
 
 DeltaEv = EgSi - EgSiGe - (ChiSiGe - ChiSi);
+
 disp(x0);
-% disp(EgSi);
-disp(ChiSiGe);
-% disp(ChiSi);
-%disp(DeltaEv);
-%disp(exp(DeltaEv/kBT));
-% beta2 = ((Dnb2*We*Ne)/(Dpe*Wb*Nb))*exp(DeltaEv/kBT); % common emitter DC gain
-% alpha2 = beta2 / (beta2 +1); %common base DC gain
+beta2 = ((Dnb2*We*Ne)/(Dpe*Wb*Nb)).*exp(DeltaEv/kBT); % common emitter DC gain
+alpha2 = beta2 / (beta2 +1); %common base DC gain
+%disp(beta2);
+%disp(alpha2);
 % VbiBE2 = %built in potential across BE2 junction
 % VbiBC2 = %built in potential across BC2 junction
 % xnbe2 = %width of EB2 depletion region
@@ -76,8 +80,16 @@ disp(ChiSiGe);
 % W2 = Wb-xnbe2-xnbc2; %electrical base width in device 2 (in um)
 % 
 %***********************Graded junction HBT Calcs**************************
-% beta3 = % common emitter DC gain
-% alpha3 = beta3 / (beta3 +1); %common base DC gain
+for i=1:2
+     nib3(i)=sqrt((5.3e15*T^1.5)*(4.82e15*4*(0.81-0.47*(1-x0(i)))*T^1.5)).*exp(-EgSiGe(i)/(2*kBT));
+end
+for i=3:13
+     nib3(i)=sqrt((2e15*T^1.5)*(4.82e15*4*(0.81-0.47*(1-x0(i)))*T^1.5)).*exp(-EgSiGe(i)/(2*kBT));
+end
+beta3 = (((nib3.^2).*Dnb2)*We*Ne)/(Dpe*Wb*Nb*niSi^2); % common emitter DC gain
+disp(beta3);
+alpha3 = beta3 ./ (beta3 +1); %common base DC gain
+disp(alpha3);
 % VbiBE3 = %built in potential across BE3 junction
 % VbiBC3 = %built in potential across BC3 junction
 % xnbe3 = %width of EB3 depletion region
