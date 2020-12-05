@@ -116,32 +116,33 @@ uit.ColumnWidth={64,114,64,164};
 uit.Position = [5 5 449 667];
 
 %*********************Plot Common Emitter DC Gain**************************
-% figure(2)
-% plot(beta1);
-% yline(beta1,'-',sprintf('BJT=%0.4f',beta1));
-% axis([0 1.1 0 100]);
-% xlabel('x0');
-% ylabel('Gain');
-% title(['Common Emitter DC Gain']);
-% grid on;
-% 
+figure(2)
+plot(beta1);
+yline(beta1,'-',sprintf('BJT=%0.4f',beta1));
+axis([0 1.1 0 100]);
+xlabel('x0');
+ylabel('Gain');
+title(['Common Emitter DC Gain']);
+grid on;
+
 % %***********************Plot Common Base DC Gain***************************
-% figure(3)
-% plot(alpha1);
-% yline(alpha1,'-',sprintf('BJT=%0.4f',alpha1));
-% axis([0 1.1 0 1.1]);
-% xlabel('x0');
-% ylabel('Gain');
-% title(['Common Base DC Gain']);
-% grid on;
-% 
+figure(3)
+plot(alpha1);
+yline(alpha1,'-',sprintf('BJT=%0.4f',alpha1));
+axis([0 1.1 0 1.1]);
+xlabel('x0');
+ylabel('Gain');
+title(['Common Base DC Gain']);
+grid on;
+
 % %***********************Plot Electrical Base Width*************************
-% figure(4)
-% plot(W1);
-% yline(W1,'-',sprintf('BJT=%0.4f',W1));
-% axis([0 1.1 0 1.1]);
-% xlabel('x0');
-% ylabel('Width (µm)');
-% title(['Electrical Base Width']);
-% grid on;
+figure(4)
+plot(W1);
+yline(W1,'-',sprintf('BJT=%0.4f',W1));
+axis([0 1.1 0 1.1]);
+xlabel('x0');
+ylabel('Width (µm)');
+title(['Electrical Base Width']);
+grid on;
+
 % %********************************End Code**********************************
