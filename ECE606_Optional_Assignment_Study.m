@@ -55,8 +55,13 @@ end
 Dnb2 = kBT * munb2;  %cm^2/sec - Minority Carrier Diffusion Coefficient
 
 %************************SiGe Alloy Band Gap*******************************
-EgSiGe = 1.12-0.41*(1-x0)+0.008*(1-x0).^2;%for 0.15<x<1.0
-
+%EgSiGe = 1.12-0.41*(1-x0)+0.008*(1-x0).^2;%for 0.15<x<1.0
+for i=1:3
+  EgSiGe(i)=5.88-(9.58.*xo_ge(i))+(4.43.*xo_ge(i).*xo_ge(i));  %Valid when xo_ge>0.85
+end
+for i=4:13
+  EgSiGe(i)=1.17-(0.47.*xo_ge(i))+(0.24.*xo_ge(i).*xo_ge(i));  %Valid when xo_ge<0.85
+end
 %**********************SiGe Electron Affinity******************************
 ChiSiGe = 4 + 0.05 * x0;
 
