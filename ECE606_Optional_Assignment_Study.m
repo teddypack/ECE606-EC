@@ -29,7 +29,7 @@
 %
 %*******************clear and close the workspace**************************
 clear all;
-close all;
+close all force;
 %**************************Initialize Parameters***************************
 ECE606_Optional_Assignment_Setup;
 %*******************************Run Study**********************************
@@ -44,13 +44,38 @@ xnbc1 = sqrt((VbiBC1*2*KSi*epsilon0*Nb)/(q*Nc*(Nc+Nb))); %width of CB1 depletion
 W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
 %
 %***********************Abrupt junction HBT Calcs**************************
-% beta2 = % common emitter DC gain
+
+%*****************Minority Carrier Mobility in the Base********************
+for i=1:6
+    munb2(i)=4315*(1-x0(i))-1396; %for 0<x<0.3
+end
+for i=7:13
+    munb2(i)=1396-4315*(1-x0(i)); %for x>0.3   
+end
+Dnb2 = kBT * munb2;  %cm^2/sec - Minority Carrier Diffusion Coefficient
+
+%************************SiGe Alloy Band Gap*******************************
+EgSiGe = 1.12-0.41*(1-x0)+0.008*(1-x0).^2;%for 0.15<x<1.0
+
+%**********************SiGe Electron Affinity******************************
+ChiSiGe = 4 + 0.05 * x0;
+
+DeltaEv = EgSi - EgSiGe - (ChiSiGe - ChiSi);
+disp(x0);
+%disp(munb2/1e3);
+% disp(EgSi);
+disp(EgSiGe);
+% disp(ChiSiGe);
+% disp(ChiSi);
+%disp(DeltaEv);
+%disp(exp(DeltaEv/kBT));
+% beta2 = ((Dnb2*We*Ne)/(Dpe*Wb*Nb))*exp(DeltaEv/kBT); % common emitter DC gain
 % alpha2 = beta2 / (beta2 +1); %common base DC gain
 % VbiBE2 = %built in potential across BE2 junction
 % VbiBC2 = %built in potential across BC2 junction
 % xnbe2 = %width of EB2 depletion region
 % xnbc2 = %width of CB2 depletion region
-% W2 = %electrical base width in device 2 (in um)
+% W2 = Wb-xnbe2-xnbc2; %electrical base width in device 2 (in um)
 % 
 %***********************Graded junction HBT Calcs**************************
 % beta3 = % common emitter DC gain
@@ -59,7 +84,7 @@ W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
 % VbiBC3 = %built in potential across BC3 junction
 % xnbe3 = %width of EB3 depletion region
 % xnbc3 = %width of CB3 depletion region
-% W3 = %electrical base width in device 3 (in um)
+% W3 = Wb-xnbe3-xnbc3; %electrical base width in device 3 (in um)
 %**************************************************************************
 %
 %******************************Plot Results********************************
@@ -68,9 +93,9 @@ W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
 DataTable = strings(14,4);
 DataTable(1,:) = ["BJT",beta1,alpha1,W1];
 for i=2:14
-    DataTable(i,1)=P.x0(i-1);
+    DataTable(i,1)=x0(i-1);
 end
-disp(DataTable);
+%disp(DataTable);
 fig = uifigure('Name','Table Results');
 uit = uitable(fig,'Data',DataTable);
 uit.ColumnName={'x0','βDC','αDC','Electrical Base Width'};%);
