@@ -36,6 +36,7 @@ ECE606_Optional_Assignment_Setup;
 %disp(x0);
 %
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓BJT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+%%
 %***********************βDC & αDC calculations*****************************
 beta1 = (Dnb1*We*Ne)/(Dpe*Wb*Nb); % common emitter DC gain
 alpha1 = beta1/(beta1 +1); %common base DC gain
@@ -49,10 +50,10 @@ xnbe1 = sqrt((VbiBE1*2*KSi*epsilon0*Nb)/(q*Ne*(Ne+Nb))); %width of EB1 depletion
 xnbc1 = sqrt((VbiBC1*2*KSi*epsilon0*Nb)/(q*Nc*(Nc+Nb))); %width of CB1 depletion region
 
 %*******************Electrical Base Width Calculation**********************
-W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
+W1=Wb-(xnbe1*1e4)-(xnbc1*1e4); %electrical base width in device 1 (in um)
 %
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Abrupt junction HBT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-
+%%
 %*****************Minority Carrier Mobility in the Base********************
 for i=1:6
     munb2(i)=7333.333*(1-x0(i))-5466.667; %for 0<x<0.3
@@ -95,6 +96,7 @@ NVSiGe = (4.82e15*4*(0.81-0.47*(1-x0))*T^1.5);
 %********************Built in Potential calculations***********************
 VbiBE2 = kBT*log((Ne*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potential across BE2 junction
 VbiBC2 = kBT*log((Nc*Nb)./(NVSiGe*NCSi))+EgSiGe+ChiSiGe-ChiSi;%built in potential across BC2 junction
+
 %***********************SiGe Dielectric Constant***************************
 KSiGe = 16.2 - 4.5*x0;
 
@@ -104,8 +106,9 @@ xnbc2 = sqrt((VbiBC2*2*KSi.*KSiGe*epsilon0*Nb)./(q*Nc*(Nc*KSi+Nb.*KSiGe))); %wid
 
 %*******************Electrical Base Width Calculation**********************
 W2 = Wb-(xnbe2*1e4)-(xnbc2*1e4); %electrical base width in device 2 (in um)
- 
+
 %▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Graded junction HBT Calcs▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+%%
 %*********Alloy Intrinsic Carrier Concentration Calculations***************
 nib3 = sqrt(NCSiGe.*NVSiGe).*exp(-EgSiGe/(2*kBT));
 
@@ -125,8 +128,8 @@ xnbc3 = sqrt((VbiBC3*2*KSi.*KSiGe*epsilon0*Nb)./(q*Nc*(Nc*KSi+Nb.*KSiGe))); %wid
 W3 = Wb-(xnbe3*1e4)-(xnbc3*1e4); %electrical base width in device 3 (in um)
 %**************************************************************************
 %
-%******************************Plot Results********************************
-
+%▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓Plot Results▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+%%
 %***************************Plot Table of info*****************************
 DataTable = strings(29,4);
 DataTable(1,:) = ["BJT",beta1,alpha1,W1];
@@ -136,15 +139,17 @@ for i=3:15
     DataTable(i,1)=x0(i-2);
     DataTable(i,2)=sprintf('%1.5g',beta2(i-2));
     DataTable(i,3)=sprintf('%1.5g',alpha2(i-2));
+    DataTable(i,4)=sprintf('%1.5g',W2(i-2));
     DataTable(i+14,1)=x0(i-2);
     DataTable(i+14,2)=sprintf('%1.5g',beta3(i-2));
     DataTable(i+14,3)=sprintf('%1.5g',alpha3(i-2));
+    DataTable(i+14,4)=sprintf('%1.5g',W3(i-2));
 end
 fig = uifigure;
 fig.Name = 'Table of Results';
 fig.Position = [500 300 459 677 ];
 uit = uitable(fig,'Data',DataTable);
-uit.ColumnName={'x0','βDC','αDC','Electrical Base Width'};%);
+uit.ColumnName={'x0 (%Si)','βDC','αDC','Electrical Base Width (µm)'};%);
 uit.ColumnWidth={64,114,64,164};
 uit.Position = [5 5 449 667];
 
@@ -173,7 +178,7 @@ grid on;
 %***********************Plot Electrical Base Width*************************
 figure(4)
 plot(x0, W1*ones(13,1), x0, W2, x0, W3);
-axis([0.05 0.65 0 1.1]);
+axis([0.05 0.65 0.39 0.425]);
 xlabel('x0');
 ylabel('Width (µm)');
 title(['Electrical Base Width']);

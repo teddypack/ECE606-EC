@@ -100,22 +100,12 @@ Dpe = kBT * mupe; %cm^2/sec
 %
 %**********************Device 2 Material Properties************************
 
-%intrinsic carrier concentration
-%mobility
-%diffusion coefficient
-%dielectric constants
-%electron affinity
-%valence band offsets
+%calculated in main file
 
 %**************************************************************************
 %
 %**********************Device 3 Material Properties************************
 
-%intrinsic carrier concentration
-%mobility
-%diffusion coefficient
-%dielectric constants
-%electron affinity
-%valence band offsets
-%
+%calculated in main file
+
 %********************************End Code**********************************
