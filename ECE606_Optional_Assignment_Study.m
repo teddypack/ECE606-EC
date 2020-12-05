@@ -47,10 +47,10 @@ W1=Wb-xnbe1-xnbc1; %electrical base width in device 1 (in um)
 
 %*****************Minority Carrier Mobility in the Base********************
 for i=1:6
-    munb2(i)=4315*(1-x0(i))-1396; %for 0<x<0.3
+    munb2(i)=7333.333*(1-x0(i))-5466.667; %for 0<x<0.3
 end
-for i=7:13
-    munb2(i)=1396-4315*(1-x0(i)); %for x>0.3   
+for i=4:13
+    munb2(i)=597*(1-x0(i))-77.6; %for x>0.3   
 end
 Dnb2 = kBT * munb2;  %cm^2/sec - Minority Carrier Diffusion Coefficient
 
@@ -62,10 +62,8 @@ ChiSiGe = 4 + 0.05 * x0;
 
 DeltaEv = EgSi - EgSiGe - (ChiSiGe - ChiSi);
 disp(x0);
-%disp(munb2/1e3);
 % disp(EgSi);
-disp(EgSiGe);
-% disp(ChiSiGe);
+disp(ChiSiGe);
 % disp(ChiSi);
 %disp(DeltaEv);
 %disp(exp(DeltaEv/kBT));
