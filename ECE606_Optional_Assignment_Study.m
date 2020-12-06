@@ -97,7 +97,7 @@ end
 ChiSiGe = 4 + 0.05 * x0;
 
 %*****************SiGe Valence Band Discontinuity**************************
-DeltaEv = abs(EgSi - EgSiGe) - abs(ChiSiGe - ChiSi);
+DeltaEv = (EgSi - EgSiGe) + (ChiSiGe - ChiSi);
 
 %***********************βDC & αDC calculations*****************************
 beta2 = ((Dnb2*We*Ne)/(Dpe*Wb*Nb)).*exp(DeltaEv/kBT); % common emitter DC gain
